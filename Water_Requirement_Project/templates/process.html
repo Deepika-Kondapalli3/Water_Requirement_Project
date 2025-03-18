@@ -1,0 +1,93 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    /* Background */
+    body {
+        background: url("https://source.unsplash.com/1600x900/?agriculture,field,weather") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+    }
+    
+    .content-wrapper {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px;
+        border-radius: 15px;
+    }
+
+    /* Card Styling */
+    .card {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 15px;
+        margin-top: 15px;
+    }
+
+    /* Highlighted Results */
+    .highlight {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #28a745;  /* Green for agricultural theme */
+    }
+
+    .icon {
+        color: #ffc107; /* Gold color for icons */
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+<div class="container">
+    <div class="content-wrapper">
+
+        <h2 class="text-center"><i class="fas fa-seedling icon"></i> Water Requirement Results</h2>
+
+        <p><strong>Crop:</strong> <span class="highlight">{{ crop }}</span></p>
+
+        <h3><i class="fas fa-tint icon"></i> Water Requirement</h3>
+        <p><strong>Water Needed:</strong> <span class="highlight">{{ water_required }} mm</span></p>
+        <p><strong>Irrigation Date:</strong> <span class="highlight">{{ next_irrigation }}</span></p>
+
+        <a href='/dashboard' class='btn btn-success mt-3'><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+        <!-- Weather Data Section -->
+        <h3 class="mt-4"><i class="fas fa-cloud-sun icon"></i> Weather Information</h3>
+        <div class="card">
+            <div class="card-body">
+                <p><strong><i class="fas fa-map-marker-alt icon"></i> Location:</strong> {{ weather_data.name }}, {{ weather_data.sys.country }}</p>
+                <p><strong><i class="fas fa-cloud icon"></i> Weather:</strong> {{ weather_data.weather[0].description | title }}</p>
+                <p><strong><i class="fas fa-thermometer-half icon"></i> Temperature:</strong> 
+                    <span class="highlight">{{ weather_data.main.temp }}°C</span> (Feels like <span class="highlight">{{ weather_data.main.feels_like }}°C</span>)
+                </p>
+                <p><strong>🌡️ Min Temperature:</strong> {{ weather_data.main.temp_min }}°C</p>
+                <p><strong>🌡️ Max Temperature:</strong> {{ weather_data.main.temp_max }}°C</p>
+                <p><strong><i class="fas fa-tint icon"></i> Humidity:</strong> <span class="highlight">{{ weather_data.main.humidity }}%</span></p>
+                <p><strong>⏲️ Pressure:</strong> {{ weather_data.main.pressure }} hPa</p>
+                <p><strong>💨 Wind Speed:</strong> {{ weather_data.wind.speed }} m/s (Direction: {{ weather_data.wind.deg }}°)</p>
+                <p><strong>☁️ Cloud Cover:</strong> {{ weather_data.clouds.all }}%</p>
+                <p><strong>👀 Visibility:</strong> {{ weather_data.visibility / 1000 }} km</p>
+                <p><strong>🌅 Sunrise:</strong> {{ weather_data.sys.sunrise | int  }}</p>
+                <p><strong>🌇 Sunset:</strong> {{ weather_data.sys.sunset | int  }}</p>
+            </div>
+        </div>
+
+
+
+        <!-- Soil Data Section -->
+        <h3 class="mt-4"><i class="fas fa-cloud-sun icon"></i> Soil Information</h3>
+        <div class="card">
+            <div class="card-body">
+                {{ph}}
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                {{soil_data}}
+            </div>
+        </div>
+        
+
+    </div>
+</div>
+
+{% endblock %}

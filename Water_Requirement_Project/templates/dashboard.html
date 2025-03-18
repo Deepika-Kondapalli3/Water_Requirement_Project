@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <h2>Water Management Dashboard</h2>
+
+    {{error}}
+    
+    <form method='POST' action='/process'>
+        <label>Crop Type:</label>
+        <select name='crop' class='form-control mb-2'>
+            <option value='rice'>Rice</option>
+            <option value='Sugarcane'>Sugarcane</option>
+            <option value='Wheat'>Wheat</option>
+            <option value='Cotton'>Cotton</option>
+        </select>
+        <br>
+
+        <label>Area:(acres)</label>
+        <input type='text' name='area' value="10" step="10" placeholder='Enter Aarea' class='form-control mb-2' required>
+
+        <label>Latitude:</label>
+        <input type='text' name='latitude' value="11.8377466" placeholder='Enter latitude' class='form-control mb-2' required>
+
+        <label>Longitude:</label>
+        <input type='text' name='longitude' value="76.1096063" placeholder='Enter longitude' class='form-control mb-2' required>
+
+        <button type='submit' class='btn btn-success'>Get Water Requirements</button>
+    </form>
+
+{% endblock %}
